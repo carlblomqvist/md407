@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Get last connected device
+PORT=$(dmesg | tail -1 | grep -oE "[^ ]+$")
+
+# Change terminal line settings.
+stty -F "/dev/$PORT" 115200 ignpar -icrnl -opost -isig -icanon -echo

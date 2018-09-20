@@ -13,18 +13,18 @@ OPTIONS:
 A port can be optionally provided in the form \"/dev/ttyUSB1\" without the quotes.";;
     load)
         if [ -z $3 ]; then
-            echo "load\n" | cat - $2 > /dev/ttyUSB0
+            echo -e "load\n" | cat - $2 > /dev/ttyUSB0
         else
-            echo "load\n" | cat - $2 > $3
+            echo -e "load\n" | cat - $2 > $3
         fi;;
     go)
         if [ -z $2 ]; then
-            echo "go\n" > /dev/ttyUSB0
+            echo -e "go\n" > /dev/ttyUSB0
         else
-            echo "go\n" > $2
+            echo -e "go\n" > $2
         fi;;
     *)
-      echo "md407: you must specify a command.
+      echo -e "md407: you must specify a command.
 Try \"md407 --help\" for more information" ;;
   esac
 done

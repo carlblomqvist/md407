@@ -12,3 +12,8 @@ or you can use [screen](https://www.gnu.org/software/screen/) and run
 screen /dev/ttyUSB0 115200
 ```
 115200 is the baudrate that needs to be used.
+
+It is also possible to launch multiple screen instances with
+```
+md407 screen /dev/ttyUSB*
+```

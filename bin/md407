@@ -7,10 +7,12 @@ for ARG in $1; do
 The script will default to /dev/ttyUSB0 if you don't provide a port
 .
 OPTIONS:
-  go\t\t[port]\tSend the \"go\" command to the MD407.
-  load\t<file>\t[port]\tLoad a file to the MD407.
+  go\t\t[port]\t\tSend the \"go\" command to the MD407.
+  load\t<file>\t[port]\t\tLoad a file to the MD407.
+  screen\t[ports...]\tSpawn a new terminal (default alacritty) instance with 'screen' for monitoring.
 
-A port can be optionally provided in the form \"/dev/ttyUSB1\" without the quotes.";;
+A port can be optionally provided in the form \"/dev/ttyUSB1\" without the quotes.
+In the case of the 'screen' option multiple ports can be listed.";;
     load)
         if [ -z $3 ]; then
             echo -e "load\n" | cat - $2 > /dev/ttyUSB0
@@ -23,6 +25,19 @@ A port can be optionally provided in the form \"/dev/ttyUSB1\" without the quote
         else
             echo -e "go\n" > $2
         fi;;
+    screen)
+	if [-z $2 ]; then
+	    alacritty -e screen /dev/ttyUSB0 115200 &
+	else
+	    i=2
+	    while [ "$i" -le "$#" ]; do
+  		eval "arg=\${$i}"
+		PORT=$arg
+		alacritty -e screen $PORT 115200 &
+  		i=$((i + 1))
+	    done
+	fi
+	;;
     *)
       echo -e "md407: you must specify a command.
 Try \"md407 --help\" for more information" ;;

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Specifies PATH the terminal emulator (here alacritty) to use to launch with the OPTION 'screen'. Make sure the terminal to use use the -e option to run a command.
+EMULATOR=/usr/bin/alacritty
+
+
 for ARG in $1; do
   case $ARG in
     -h|--help)
@@ -9,7 +13,7 @@ The script will default to /dev/ttyUSB0 if you don't provide a port
 OPTIONS:
   go\t\t[port]\t\tSend the \"go\" command to the MD407.
   load\t<file>\t[port]\t\tLoad a file to the MD407.
-  screen\t[ports...]\tSpawn a new terminal (default alacritty) instance with 'picocom' for monitoring. Requires alacritty and picocom to be installed and in path.
+  screen\t[ports...]\tSpawn a new terminal instance with 'picocom' for monitoring. Requires picocom to be installed and in path. The terminal emulator can be changed with the EMULATOR variable in md407 script.
 
 A port can be optionally provided in the form \"/dev/ttyUSB1\" without the quotes.
 In the case of the 'screen' option multiple ports can be listed.";;
@@ -27,15 +31,15 @@ In the case of the 'screen' option multiple ports can be listed.";;
         fi;;
     screen)
 	if [ -z $2 ]; then
-	    # alacritty can be changed to another terminal but picocom is required to have correct output due to lf+cr problems
-	    alacritty -e picocom /dev/ttyUSB0 -b 115200 --imap lfcrlf &
+	    # picocom is required to have correct output due to lf+cr problems
+	    $EMULATOR -e picocom /dev/ttyUSB0 -b 115200 --imap lfcrlf &
 	else
 	    i=2
 	    while [ "$i" -le "$#" ]; do
   		eval "arg=\${$i}"
 		PORT=$arg
-	        # alacritty can be changed to another terminal but picocom is required to have correct output due to lf+cr problems
-		alacritty -e picocom $PORT -b 115200 --imap lfcrlf &
+	        # picocom is required to have correct output due to lf+cr problems
+		$EMULATOR -e picocom $PORT -b 115200 --imap lfcrlf &
   		i=$((i + 1))
 	    done
 	fi

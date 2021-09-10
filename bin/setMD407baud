@@ -1,7 +1,20 @@
 #!/bin/sh
+# Usage: setMD407baud [ports..]
 
-# Get last connected device
-PORT=$(dmesg | tail -1 | grep -oE "[^ ]+$")
+if [ -z $1 ]; then
+    # Get last connected device
+    PORT=$(dmesg | tail -1 | grep -oE "[^ ]+$")
 
-# Change terminal line settings.
-stty -F "/dev/$PORT" 115200 ignpar -icrnl -opost -isig -icanon -echo
+    # Change terminal line settings.
+    stty -F "/dev/$PORT" 115200 ignpar -icrnl -opost -isig -icanon -echo
+else
+    # do the same for every device in arguments
+    i=1
+    while [ "$i" -le "$#" ]; do
+  	eval "arg=\${$i}"
+	PORT=$arg
+	stty -F "$PORT" 115200 ignpar -icrnl -opost -isig -icanon -echo
+  	i=$((i + 1))
+    done
+fi
+

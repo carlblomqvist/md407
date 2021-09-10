@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Specifies PATH the terminal emulator (here alacritty) to use to launch with the OPTION 'screen'. Make sure the terminal to use use the -e option to run a command.
+# Specifies PATH the terminal emulator (here alacritty) to use to launch with the OPTION 'screen'. Make sure the terminal uses the -e option to run a command.
 EMULATOR=/usr/bin/alacritty
 
 

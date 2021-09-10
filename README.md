@@ -17,4 +17,4 @@ It is also possible to launch multiple picocom instances for monitoring and inte
 ```
 md407 screen /dev/ttyUSB*
 ```
-This option requires picocom to be installed and in path and alacritty (not a must, can be edited).
+This option requires picocom to be installed and in path. The terminal emulator to use can be change with the `EMULATOR` variable in the md407 script (default alacritty).

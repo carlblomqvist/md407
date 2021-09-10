@@ -13,7 +13,8 @@ screen /dev/ttyUSB0 115200
 ```
 115200 is the baudrate that needs to be used.
 
-It is also possible to launch multiple screen instances with
+It is also possible to launch multiple picocom instances for monitoring and interaction with
 ```
 md407 screen /dev/ttyUSB*
 ```
+This option requires picocom to be installed and in path and alacritty (not a must, can be edited).
